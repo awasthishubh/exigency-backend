@@ -15,22 +15,22 @@ module.exports = {
   		type:"string"
   	},
   	email:{
-  		type"string"
+  		type: "string"
   	},
   	stitle:{
-  		type"string"
+  		type: "string"
   	},
   	spos:{
-  		type"json"
+  		type: "json"
   	},	
   	dtitle:{
-  		type"string"
+  		type: "string"
   	},	
   	dpos:{
-  		type"json"
+  		type: "json"
   	},	
   	mate:{
-  		type"string"
+  		type: "string"
   	}
   }
 };
