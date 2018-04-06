@@ -18,11 +18,18 @@ module.exports = {
 		spos=req.param('spos');
 		dtitle=req.param('dtitle');
 		dpos=req.param('dpos');
-		partner=req.param('partner');
+		team=req.param('team');
+		id=req.param('id');
 
-		Mem.create({name:name, phno:phno, email:email, items:items, sid:sid, spos:spos, dtitle:dtitle, dpos:dpos, partner:partner}).exec(function(err, record){
+		if(id==null)
+		Mem.create({name:name, phno:phno, email:email, items:items, sid:sid, spos:spos, dtitle:dtitle, dpos:dpos, team:team}).exec(function(err, record){
 			if(err) return res.json(500,{message:'No Idea'});
-			return res.json(200,{data:record, status:1});
+			return res.json(200,{data:record, status:2});
+			});
+		else
+		Mem.create({name:name, phno:phno, email:email, items:items, sid:sid, spos:spos, dtitle:dtitle, dpos:dpos, team:team,id:id}).exec(function(err, record){
+			if(err) return res.json(500,{message:'No Idea'});
+			return res.json(200,{data:record, status:1,id:id});
 			});
   	},
 
@@ -35,7 +42,7 @@ module.exports = {
 			res.json(records);
 			})
 		},
-	fnd: function(req,res) {
+	find: function(req,res) {
 		res.header("Access-Control-Allow-Origin", "*");
   		res.header("Access-Control-Allow-Headers", "X-Requested-With");
 
@@ -44,17 +51,63 @@ module.exports = {
   		Mem.find({sid:id}).exec(function(err, records){
 			res.json(records);
 			})
-		}
-	fnd2: function(req,res) {
+		},
+
+	delete: function(req,res) {
 		res.header("Access-Control-Allow-Origin", "*");
   		res.header("Access-Control-Allow-Headers", "X-Requested-With");
 
   		id=req.param('id');
+		Mem.destroy({'id':id}).exec(function (err,data) {
+			if(err) return res.serverError(err);
+			if(data.length==0) res.json({msg: "Invalid reg",status:0, data:{}});
+			else res.json({data:data, status:1});
+		});
+	}
+}
 
-  		Mem.find({id:id}).exec(function(err, records){
-			res.json(records);
-			})
-		}
+
+
+
+
+//   		items=req.param('items');
+//   		team=req.param('team');
+//   		id=req.param('id');
+
+//   // 		Mem.update({id:id}).set({items:items,team:team});
+
+//   // 		Mem.update({id:id})
+// 		// .set({items:items,team:team});
+
+// 		// Mem.update({id:id}, {items:items,team:team});
+
+// 		// return res.json({items, id, team});
+
+//   		Mem.find({'id':id}).exec(function(err, records){
+//   			records.items=items;
+//   			records.team=team;
+//   			Mem.destroy({id:records.id});  			
+// 			Mem.create(records);
+// 			res.json(records.sid);
+// 			})
+
+// 		// 	id=req.param('id');
+// 		// 	Mem.destroy({'id':id}).exec(function (err,data) {
+// 		// 	if(err) return res.serverError(err);
+// 		// 	if(data.length==0) res.json({msg: "Invalid reg",status:0, data:{}});
+// 		// 	else res.json({data:data, status:1});
+// 		// });
+// 		}
+// 	// fnd2: function(req,res) {
+// 	// 	res.header("Access-Control-Allow-Origin", "*");
+//  //  		res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
+//  //  		id=req.param('id');
+
+//  //  		Mem.find({id:id}).exec(function(err, records){
+// 	// 		res.json(records);
+// 	// 		})
+// 	// 	}
 	
 
-}
+// }

@@ -8,6 +8,11 @@
 module.exports = {
 
   attributes: {
+
+    // id: {
+    //   type: 'integer',
+    //   autoIncrement: true
+    // },
   	name:{
   		type: "string"
   	},
@@ -31,7 +36,10 @@ module.exports = {
   	},	
   	dpos:{
   		type: "json"
-  	}
+  	},
+    team:{
+      type: "json"
+    }
   }
 };
 
